@@ -1,5 +1,5 @@
 import React from "react";
-import NavBar from "../components/NavBarComponent/NavBarComponent";
+import NavBar from "../components/NavBar/NavBar";
 
 export default function Templates() {
   return (

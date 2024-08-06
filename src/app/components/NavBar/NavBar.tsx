@@ -1,5 +1,5 @@
 import Link from "next/link";
-
+import "./styles.scss";
 export default function NavBar() {
   return (
     <nav>
@@ -22,10 +22,10 @@ export default function NavBar() {
         <li>
           <Link href="/brain">Brain</Link>
         </li>
-        <li>
+        <li className="login">
           <Link href="/login">Login</Link>
         </li>
-        <li>
+        <li className="settings">
           <Link href="/settings">Settings</Link>
         </li>
       </ul>

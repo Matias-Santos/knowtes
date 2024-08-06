@@ -1,10 +1,15 @@
-import Chat from "./components/ChatComponent/ChatComponent";
-import NavBar from "./components/NavBarComponent/NavBarComponent";
+import Chat from "./components/Chat/Chat";
+import FileTree from "./components/FileTree/FileTree";
+import NavBar from "./components/NavBar/NavBar";
+import "./styles.scss";
 export default function Home() {
   return (
-    <div>
+    <main className="main">
       <NavBar />
-      <Chat></Chat>
-    </div>
+      <div className="body">
+        <FileTree></FileTree>
+        <Chat></Chat>
+      </div>
+    </main>
   );
 }

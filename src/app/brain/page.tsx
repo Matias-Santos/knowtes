@@ -1,6 +1,6 @@
 import React from "react";
-import NavBar from "../components/NavBarComponent/NavBarComponent";
-import ChatComponent from "../components/ChatComponent/ChatComponent";
+import NavBar from "../components/NavBar/NavBar";
+import ChatComponent from "../components/Chat/Chat";
 
 export default function Chat() {
   return (

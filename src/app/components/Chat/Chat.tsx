@@ -58,23 +58,24 @@ export default function ChatComponent() {
   };
 
   return (
-    <div className="main">
-      <div>
+    <div className="chat">
+      <div className="messages">
         {messages.map((msg, index) => (
-          <div key={index}>
-            <strong>{msg.role === "user" ? "You" : "AI"}:</strong> {msg.content}
-          </div>
+          <p key={index} className="message">
+            {msg.role === "user" ? "You" : "AI"}: {msg.content}
+          </p>
         ))}
       </div>
 
-      <form onSubmit={handleSubmit}>
+      <form className="form" onSubmit={handleSubmit}>
         <input
+          className="input"
           value={input}
           onChange={(e) => setInput(e.target.value)}
           placeholder="Type your message..."
           disabled={isLoading}
         />
-        <button type="submit" disabled={isLoading}>
+        <button className="button" type="submit" disabled={isLoading}>
           {isLoading ? "Sending..." : "Send"}
         </button>
       </form>

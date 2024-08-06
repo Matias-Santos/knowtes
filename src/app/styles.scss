@@ -1,0 +1,15 @@
+.main {
+  display: grid;
+  grid-template-columns: 1fr 8fr 1fr; /* Sidebar - Main Content - Sidebar */
+  grid-template-rows: auto 20fr auto; /* Flexible rows with middle content taking the most space */
+  background-color: #735530;
+
+  .body {
+    background-color: #7d7d7d;
+    height: max-content;
+    grid-area: 2 / 2 / 3 / 3;
+    display: grid;
+    grid-template-columns: 3fr 8fr 3fr; /* Aside - Main Content - Aside */
+    grid-template-rows: 1fr; /* Ensure no gaps between grid items */
+  }
+}
