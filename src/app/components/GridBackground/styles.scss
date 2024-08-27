@@ -1,0 +1,20 @@
+.gridBackground {
+    display: grid;
+    grid-template-columns: repeat(64, 1fr);
+    grid-template-rows: repeat(40, 1fr);
+    width: 100%; /* Adjust as needed */
+    height: 100%;
+    background-color: var(--border-grey);
+    gap: 1px;
+
+
+    position: relative;
+    z-index: 1;
+}
+  
+  .gridItem {
+    background-color: var(--primary); /* Adjust as needed */
+    width: 100%; /* Ensure the grid item spans the full width of the cell */
+    height: 100%; /* Ensure the grid item spans the full height of the cell */
+  }
+  

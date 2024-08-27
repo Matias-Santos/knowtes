@@ -1,40 +1,37 @@
-nav {
-  grid-area: 1 / 2 / 2 / 3;
-  height: 80%;
+.nav {
+  background-color: var(--primary);
   width: 100%;
-  margin: 1em 0;
+  padding: 0 var(--sp-xl) var(--sp-lg) var(--sp-xl);
   display: flex;
-  justify-content: center;
-
+  justify-content: space-between;
+  border-bottom: 1px solid var(--border-grey);
   ul {
-    display: grid;
-    grid-template-columns: repeat(9, 1fr); /* 9 equal columns */
-    grid-template-rows: 1fr;
-    gap: 1em; /* Spacing between nav items */
-    background-color: #7d7d7d;
-    border-radius: 2em 2em 0 0;
-    padding: 0 2em;
-
-    li {
-      text-align: center;
-    }
-
-    .login {
-      grid-column: 8 / 9; /* Span the 8th column */
-      background-color: #ffc827;
-      color: #3a3a3a;
-      font-weight: 800;
-    }
-    .settings {
-      grid-column: 9 / 10; /* Span the 9th column */
-    }
+    display: flex;
+    justify-content: space-between;
+    column-gap: var(--sp-lg);
   }
 
   li {
-    margin: 1em 0; /* Adjust to remove horizontal margins */
-    padding: 1em;
-    background-color: #3a3a3a;
-    list-style: none;
-    border-radius: 4px 4px 0 0;
+    padding: var(--sp-xl) var(--sp-ml) var(--sp-md) var(--sp-ml);
+    background-color: var(--background);
+    color: var(--primary);
+    border-radius: 0 0 var(--sp-lg) var(--sp-lg);
+    box-shadow: 0px 4px var(--sp-lg) rgba(0, 0, 0, 0.3); 
+
+    transition: transform 0.2s ease; /* Move transition here */
+
+    &:hover {
+      background-color: var(--background-light);
+      color: var(--accent);
+      transform: scale(1.1);
+    }
+  }
+
+  .login {
+    /* Add specific styles for .login here */
+  }
+
+  .settings {
+    /* Add specific styles for .settings here */
   }
 }

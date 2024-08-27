@@ -1,64 +1,6 @@
 .chat {
-  grid-area: 2 / 2 / 3 / 3; /* Place in the middle column and row */
-  display: grid;
-  grid-template-columns: 1fr;
-  grid-template-rows: 3fr 1fr;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  row-gap: 1em;
-  background-color: #7d7d7d;
-  padding: 1em;
-  border-radius: 2em;
-
-  .messages {
-    display: flex;
-    flex-direction: column;
-    border-radius: 1em;
-    background-color: #d0caaf;
-    padding: 2em;
-    width: 100%;
-    height: 100%;
-
-    .message:nth-child(odd) {
-      max-width: 80%;
-      padding: 1em;
-      margin-bottom: 1em;
-      border-radius: 1em;
-      align-self: flex-end;
-      background-color: #3a3a3a;
-    }
-
-    .message:nth-child(even) {
-      max-width: 80%;
-      padding: 1em;
-      margin-bottom: 1em;
-      border-radius: 1em;
-      align-self: flex-start;
-      background-color: #3a3a3a;
-    }
-  }
-
-  .form {
-    display: flex;
-    justify-content: space-between;
-    background-color: #3a3a3a;
-    border-radius: 2em;
-
-    .input {
-      padding: 1em;
-      margin: 1em;
-      width: 100%;
-      height: 100%;
-      border: none;
-      border-radius: 2em;
-    }
-
-    .button {
-      padding: 1em;
-      margin: 1em;
-      background-color: #3a3a3a;
-      border: none;
-    }
-  }
+    background-color: blue;
+margin: var(--sp-lg);
+padding: var(--sp-lg);
+    
 }

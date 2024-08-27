@@ -1,0 +1,9 @@
+.header-button {
+    background-color: red;
+    display: flex;
+    padding: var(--sp-md);
+    border: none;
+    border-radius: 4px;
+    justify-content: space-between;
+    width: 100%;
+}

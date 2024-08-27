@@ -2,7 +2,7 @@ import Link from "next/link";
 import "./styles.scss";
 export default function NavBar() {
   return (
-    <nav>
+    <nav className="nav">
       <ul>
         <li>
           <Link href="/">Knowtes</Link>
@@ -13,6 +13,8 @@ export default function NavBar() {
         <li>
           <Link href="/chat">Chat</Link>
         </li>
+      </ul>
+      <ul>
         <li>
           <Link href="/graphs">Graphs</Link>
         </li>
@@ -22,6 +24,8 @@ export default function NavBar() {
         <li>
           <Link href="/brain">Brain</Link>
         </li>
+      </ul>
+      <ul>
         <li className="login">
           <Link href="/login">Login</Link>
         </li>

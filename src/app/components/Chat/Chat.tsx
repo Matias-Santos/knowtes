@@ -1,8 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { generate } from "../../actions";
 import { readStreamableValue } from "ai/rsc";
+import { generate } from "../../actions";
 import "./styles.scss";
 
 export default function ChatComponent() {

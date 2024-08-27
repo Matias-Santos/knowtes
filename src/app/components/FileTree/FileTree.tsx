@@ -1,41 +1,12 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { FileSystemItem } from "../Interfaces/FileSystemItem";
+import { FileSystemItem } from "@/app/interfaces/FileSystemItem";
+import { fileSystemItems } from "./FileTreeMock";
 import "./styles.scss";
+import FileTreeItem from "../FileTreeItem/FileTreeItem";
 
 // Sample file system structure
-const fileSystemItems: FileSystemItem[] = [
-  {
-    name: "Folder 1",
-    isFolder: true,
-    children: [
-      {
-        name: "File 1",
-        isFolder: false,
-      },
-      {
-        name: "File 2",
-        isFolder: false,
-      },
-    ],
-  },
-  {
-    name: "Folder 2",
-    isFolder: true,
-    children: [
-      {
-        name: "File 3",
-        isFolder: false,
-      },
-      {
-        name: "File 4",
-        isFolder: false,
-      },
-    ],
-  },
-];
-
 interface FileTreeState {
   openFolders: { [key: string]: boolean };
   selectedItems: Set<string>;
@@ -67,24 +38,24 @@ export default function FileTree() {
   }, []);
 
   // Toggle folder open/close state
-  const toggleFolder = (folderName: string) => {
+  const toggleFolder = (folderId: string) => {
     setState((prev) => ({
       ...prev,
       openFolders: {
         ...prev.openFolders,
-        [folderName]: !prev.openFolders[folderName],
+        [folderId]: !prev.openFolders[folderId],
       },
     }));
   };
 
   // Toggle selection state
-  const toggleSelection = (itemName: string) => {
+  const toggleSelection = (itemId: string) => {
     setState((prev) => {
       const selectedItems = new Set(prev.selectedItems);
-      if (selectedItems.has(itemName)) {
-        selectedItems.delete(itemName);
+      if (selectedItems.has(itemId)) {
+        selectedItems.delete(itemId);
       } else {
-        selectedItems.add(itemName);
+        selectedItems.add(itemId);
       }
       return { ...prev, selectedItems };
     });
@@ -94,50 +65,50 @@ export default function FileTree() {
   const renderFileSystemItem = (item: FileSystemItem) => {
     const isSelected = state.selectedItems.has(item.name);
     const isOpen = item.isFolder
-      ? state.openFolders[item.name] || false
+      ? state.openFolders[item.id] || false
       : false;
 
     if (item.isFolder) {
       return (
-        <div
-          key={item.name}
-          className={`folder ${isSelected ? "selected" : ""}`}>
-          <div
-            className="folder-title"
-            onClick={() => {
-              toggleFolder(item.name);
-              toggleSelection(item.name);
-            }}>
-            {isOpen ? "📂" : "📁"} {item.name}
-          </div>
-          {isOpen && (
-            <div className="folder-contents">
-              {item.children?.map((child) => renderFileSystemItem(child))}
+        <div className="aside__file-tree__folder">
+          <div key={item.name} className=".aside__file-tree__folder-header">
+            <div
+              className="aside__file-tree__folder-title"
+              onClick={() => {
+                toggleFolder(item.id);
+                toggleSelection(item.id);
+              }}>
+              {isOpen ? "📂" : "📁"} {item.name}
             </div>
-          )}
-        </div>
-      );
-    } else {
-      return (
-        <div
-          key={item.name}
-          className={`file ${isSelected ? "selected" : ""}`}
-          onClick={() => toggleSelection(item.name)}>
-          <div className="file-title">📄 {item.name}</div>
+          </div>
+          <div className="aside__file-tree__folder-contents">
+            {isOpen && (
+              <div>
+                {item.children?.map((child) => renderFileSystemItem(child))}
+              </div>
+            )}
+          </div>
         </div>
       );
     }
+
+    return (
+      <div className="aside__file-tree__file">
+        <div className="aside__file-tree__file-title">📄 {item.name}</div>
+      </div>
+    );
   };
 
   return (
-    <aside className="aside">
-      <div className="file-tree-header-title">
+    <aside className="aside__file-tree">
+      <div className="aside__file-tree__header-title">
         <h1>File Tree</h1>
       </div>
-      <div className="file-tree-body">
-        <div className="file-tree-body-content">
-          {fileSystemItems.map((item) => renderFileSystemItem(item))}
-        </div>
+      <div className="aside__file-tree__content">
+        {fileSystemItems.map((item: FileSystemItem) =>
+          renderFileSystemItem(item)
+        )}
+        <FileTreeItem />
       </div>
     </aside>
   );
