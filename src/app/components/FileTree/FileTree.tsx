@@ -1,115 +1,118 @@
 "use client";
-
+// components/FileTree.tsx
 import React, { useState, useEffect } from "react";
-import { FileSystemItem } from "@/app/interfaces/FileSystemItem";
-import { fileSystemItems } from "./FileTreeMock";
-import "./styles.scss";
-import FileTreeItem from "../FileTreeItem/FileTreeItem";
+import FileTreeFolder from "../FileTreeFolder/FileTreeFolder";
+import { FileSystemItem } from "../../interfaces/FileSystemItem";
 
-// Sample file system structure
-interface FileTreeState {
-  openFolders: { [key: string]: boolean };
-  selectedItems: Set<string>;
-}
+import styles from "./FileTree.module.scss";
 
-export default function FileTree() {
-  const [state, setState] = useState<FileTreeState>({
-    openFolders: {},
-    selectedItems: new Set(),
-  });
+// Mock function to simulate fetching data
+const fetchData = async (): Promise<FileSystemItem> => {
+    // Replace this with actual data fetching logic
+    return {
+        id: "root",
+        name: "Root Folder",
+        isFolder: true,
+        isOpen: true,
+        isSelected: false,
+        subfolders: [
+            {
+                id: "file1",
+                name: "File 1.md",
+                isFolder: false,
+                isOpen: false,
+                isSelected: false,
+            },
+            {
+                id: "folder1",
+                name: "Folder 1",
+                isFolder: true,
+                isOpen: false,
+                isSelected: false,
+                subfolders: [
+                    {
+                        id: "file2",
+                        name: "File 2.md",
+                        isFolder: false,
+                        isOpen: false,
+                        isSelected: false,
+                    },
+                    {
+                        id: "folder2",
+                        name: "Folder 2",
+                        isFolder: true,
+                        isOpen: false,
+                        isSelected: false,
+                        subfolders: [
+                            {
+                                id: "file3",
+                                name: "File 3.md",
+                                isFolder: false,
+                                isOpen: false,
+                                isSelected: false,
+                            },
+                        ],
+                    },
+                ],
+            },
+        ],
+    };
+};
 
-  // Save to local storage
-  useEffect(() => {
-    localStorage.setItem(
-      "selectedItems",
-      JSON.stringify([...state.selectedItems])
-    );
-  }, [state.selectedItems]);
+const FileTree: React.FC = () => {
+    const [data, setData] = useState<FileSystemItem | null>(null);
 
-  // Retrieve from local storage
-  useEffect(() => {
-    const savedState = localStorage.getItem("selectedItems");
-    if (savedState) {
-      setState((prev) => ({
-        ...prev,
-        selectedItems: new Set(JSON.parse(savedState)),
-      }));
-    }
-  }, []);
+    useEffect(() => {
+        const loadData = async () => {
+            const result = await fetchData();
+            setData(result);
+        };
+        loadData();
+    }, []);
 
-  // Toggle folder open/close state
-  const toggleFolder = (folderId: string) => {
-    setState((prev) => ({
-      ...prev,
-      openFolders: {
-        ...prev.openFolders,
-        [folderId]: !prev.openFolders[folderId],
-      },
-    }));
-  };
+    const toggleSelection = (id: string) => {
+        const toggleItem = (item: FileSystemItem) => {
+            if (item.id === id) {
+                item.isSelected = !item.isSelected;
+            }
+            if (item.subfolders) {
+                item.subfolders.forEach(toggleItem);
+            }
+        };
 
-  // Toggle selection state
-  const toggleSelection = (itemId: string) => {
-    setState((prev) => {
-      const selectedItems = new Set(prev.selectedItems);
-      if (selectedItems.has(itemId)) {
-        selectedItems.delete(itemId);
-      } else {
-        selectedItems.add(itemId);
-      }
-      return { ...prev, selectedItems };
-    });
-  };
+        if (data) {
+            toggleItem(data);
+            setData({ ...data });
+        }
+    };
 
-  // Render a file or folder
-  const renderFileSystemItem = (item: FileSystemItem) => {
-    const isSelected = state.selectedItems.has(item.name);
-    const isOpen = item.isFolder
-      ? state.openFolders[item.id] || false
-      : false;
+    const toggleFolder = (id: string) => {
+        const toggleItem = (item: FileSystemItem) => {
+            if (item.id === id) {
+                item.isOpen = !item.isOpen;
+            }
+            if (item.subfolders) {
+                item.subfolders.forEach(toggleItem);
+            }
+        };
 
-    if (item.isFolder) {
-      return (
-        <div className="aside__file-tree__folder">
-          <div key={item.name} className=".aside__file-tree__folder-header">
-            <div
-              className="aside__file-tree__folder-title"
-              onClick={() => {
-                toggleFolder(item.id);
-                toggleSelection(item.id);
-              }}>
-              {isOpen ? "📂" : "📁"} {item.name}
-            </div>
-          </div>
-          <div className="aside__file-tree__folder-contents">
-            {isOpen && (
-              <div>
-                {item.children?.map((child) => renderFileSystemItem(child))}
-              </div>
-            )}
-          </div>
-        </div>
-      );
-    }
+        if (data) {
+            toggleItem(data);
+            setData({ ...data });
+        }
+    };
 
     return (
-      <div className="aside__file-tree__file">
-        <div className="aside__file-tree__file-title">📄 {item.name}</div>
-      </div>
+        <div className={styles["aside__file-tree"]}>
+            {data && (
+                <FileTreeFolder
+                    item={data}
+                    onToggle={toggleSelection}
+                    onToggleFolder={toggleFolder}
+                />
+            )}
+        </div>
     );
-  };
+};
 
-  return (
-    <aside className="aside__file-tree">
-      <div className="aside__file-tree__header-title">
-        <h1>File Tree</h1>
-      </div>
-      <div className="aside__file-tree__content">
-        {fileSystemItems.map((item: FileSystemItem) =>
-          renderFileSystemItem(item)
-        )}
-        <FileTreeItem />
-      </div>
-    </aside>
-  );
-}
+export default FileTree;

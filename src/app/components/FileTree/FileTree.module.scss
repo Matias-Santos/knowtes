@@ -1,0 +1,15 @@
+.aside__file-tree {
+    margin: var(--sp-lg);
+    background-color: var(--primary-light);
+    box-shadow: 0px 8px var(--sp-lg) rgba(0, 0, 0, 0.3);
+    border-radius: var(--sp-lg);
+
+    .aside__file-tree__header-title {
+        padding: var(--sp-md);
+        border-radius: var(--sp-lg) var(--sp-lg) 0 0;
+        background-color: var(--header-accent);
+    }
+    .aside__file-tree__content {
+        margin: var(--sp-md);
+    }
+}

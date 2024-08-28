@@ -1,0 +1,28 @@
+.aside__file-tree__folder {
+    background-color: var(--header-accent);
+    margin: var(--sp-md);
+    border-radius: 4px;
+
+    .aside__file-tree__folder-header {
+        padding: 0 var(--sp-md);
+        display: flex;
+        gap: var(--sp-md);
+
+        .aside__file-tree__folder-title {
+            width: 100%;
+        }
+        .aside__file-tree__folder-checkbox {
+            margin-right: var(--sp-md);
+        }
+    }
+
+    .aside__file-tree__folder-contents {
+        padding-left: var(--sp-md);
+        background-color: var(--primary-light);
+        border: var(--sp-sm) solid var(--header-accent);
+        border-radius: var(--sp-md);
+    }
+
+    .aside__file-tree__file-title {
+    }
+}

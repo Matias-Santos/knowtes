@@ -4,5 +4,5 @@ export interface FileSystemItem {
   isFolder: boolean;
   isOpen: boolean;
   isSelected: boolean;
-  children?: FileSystemItem[];
+  subfolders?: FileSystemItem[]; // Nested folders
 }
